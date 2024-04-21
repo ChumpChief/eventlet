@@ -1,0 +1,35 @@
+{
+    "name": "eventlet-project",
+    "private": true,
+    "description": "",
+    "scripts": {
+        "build": "nx run-many --target=build",
+        "clean": "nx run-many --target=clean",
+        "lint": "nx run-many --target=lint",
+        "nx": "nx",
+        "reset": "nx reset",
+        "start": "nx run examples:start",
+        "test": "nx run-many --target=test",
+        "webpack": "nx run-many --target=webpack",
+        "ci": "nx run-many --targets=build,lint,test,webpack",
+        "npm:publish": "pnpm publish -r",
+        "pnpm:prune": "pnpm store prune",
+        "verdaccio:adduser": "pnpm adduser --registry http://localhost:4873",
+        "verdaccio:login": "pnpm login --registry http://localhost:4873",
+        "verdaccio:publish": "pnpm publish -r --registry http://localhost:4873",
+        "verdaccio:purge": "rm -rf ~/.config/verdaccio/storage",
+        "verdaccio:purgeuser": "rm ~/.config/verdaccio/htpasswd"
+    },
+    "keywords": [],
+    "author": "Matt Rakow",
+    "license": "Unlicense",
+    "type": "module",
+    "devDependencies": {
+        "@changesets/cli": "^2.27.1",
+        "nx": "^18.3.3"
+    },
+    "engines": {
+        "node": ">=20",
+        "pnpm": ">=9"
+    }
+}
