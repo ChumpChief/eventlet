@@ -9,7 +9,7 @@
         "lint": "eslint src",
         "test": "NODE_OPTIONS=--experimental-vm-modules jest built/.*.test.js"
     },
-    "keywords": [],
+    "keywords": ["eventlet", "events", "emitters", "listeners"],
     "author": "Matt Rakow",
     "license": "Unlicense",
     "type": "module",
