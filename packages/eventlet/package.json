@@ -3,6 +3,7 @@
     "version": "0.0.0",
     "description": "A minimal typed event library",
     "main": "built/index.js",
+    "types": "built/index.d.ts",
     "sideEffects": false,
     "scripts": {
         "build": "tsc",
