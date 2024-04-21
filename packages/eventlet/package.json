@@ -28,5 +28,6 @@
         "type": "git",
         "url": "https://github.com/ChumpChief/eventlet.git",
         "directory": "packages/eventlet"
-    }
+    },
+    "homepage": "https://github.com/ChumpChief/eventlet#readme"
 }
