@@ -7,7 +7,7 @@ export type Listener<EventArgs extends unknown[] = []> = (...args: EventArgs) =>
  * An EmitControl permits emitting, which will trigger any registered listener functions.
  */
 export type EmitControl<EventArgs extends unknown[] = []> = {
-    readonly emit: (...args: Parameters<Listener<EventArgs>>) => void;
+    readonly emit: (...args: EventArgs) => void;
 };
 
 /**
