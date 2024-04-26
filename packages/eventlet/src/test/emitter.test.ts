@@ -144,7 +144,7 @@ describe("Eventer", function() {
     });
 
     describe("Non-empty listener", function() {
-        let eventer: Eventlet<[arg1: number, arg2: string]>;
+        let eventer: Eventlet<TestListenerType>;
         let mockListener1: jest.Mock<TestListenerType>;
         let mockListener2: jest.Mock<TestListenerType>;
         beforeEach(function() {
