@@ -138,11 +138,13 @@ describe("Eventer", function() {
             expect(orderedListener1).toBeCalledTimes(3);
             expect(orderedListener2).toBeCalledTimes(2);
             expect(orderedListener3).toBeCalledTimes(3);
+
+            expect(expectedCallOrder.length).toBe(0);
         });
     });
 
     describe("Non-empty listener", function() {
-        let eventer: Eventlet<[arg1: number, arg2: string]>;
+        let eventer: Eventlet<TestListenerType>;
         let mockListener1: jest.Mock<TestListenerType>;
         let mockListener2: jest.Mock<TestListenerType>;
         beforeEach(function() {
