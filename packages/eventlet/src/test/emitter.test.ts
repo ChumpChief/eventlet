@@ -138,6 +138,8 @@ describe("Eventer", function() {
             expect(orderedListener1).toBeCalledTimes(3);
             expect(orderedListener2).toBeCalledTimes(2);
             expect(orderedListener3).toBeCalledTimes(3);
+
+            expect(expectedCallOrder.length).toBe(0);
         });
     });
 
