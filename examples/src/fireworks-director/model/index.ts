@@ -1,2 +1,1 @@
-export { HueColorAdapter, type ObservableColor } from "./hueColorAdapter.js";
-export { HueCycler, type ObservableHue } from "./hueCycler.js";
+export { FireworksDirector } from "./fireworksDirector.js";

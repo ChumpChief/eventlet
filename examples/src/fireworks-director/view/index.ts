@@ -1,1 +1,1 @@
-export { AppView } from "./appView.js";
+export { FireworksView } from "./fireworksView.js";
