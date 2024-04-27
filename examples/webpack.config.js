@@ -12,10 +12,6 @@ export default {
         "index": {
             import: "./src/index.tsx",
         },
-        "hue-cycler": {
-            filename: "hue-cycler/[name].bundle.js",
-            import: "./src/hue-cycler/index.ts",
-        },
         "eventlet-pack-test": {
             filename: "eventlet-pack-test/[name].bundle.js",
             import: "./src/eventlet-pack-test/index.ts",
@@ -23,6 +19,14 @@ export default {
         "events-pack-test": {
             filename: "events-pack-test/[name].bundle.js",
             import: "./src/events-pack-test/index.ts",
+        },
+        "fireworks-director": {
+            filename: "fireworks-director/[name].bundle.js",
+            import: "./src/fireworks-director/index.ts",
+        },
+        "hue-cycler": {
+            filename: "hue-cycler/[name].bundle.js",
+            import: "./src/hue-cycler/index.ts",
         },
     },
     mode: "development",
@@ -48,6 +52,11 @@ export default {
         new HtmlWebpackPlugin({
             chunks: ["index"],
             template: "./src/index.html",
+        }),
+        new HtmlWebpackPlugin({
+            chunks: ["fireworks-director"],
+            filename: "fireworks-director/index.html",
+            template: "./src/fireworks-director/index.html",
         }),
         new HtmlWebpackPlugin({
             chunks: ["hue-cycler"],
