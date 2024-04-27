@@ -12,9 +12,9 @@ export default {
         "index": {
             import: "./src/index.tsx",
         },
-        "eventlet-example": {
-            filename: "eventlet-example/[name].bundle.js",
-            import: "./src/eventlet-example/index.ts",
+        "hue-cycler": {
+            filename: "hue-cycler/[name].bundle.js",
+            import: "./src/hue-cycler/index.ts",
         },
         "eventlet-pack-test": {
             filename: "eventlet-pack-test/[name].bundle.js",
@@ -50,9 +50,9 @@ export default {
             template: "./src/index.html",
         }),
         new HtmlWebpackPlugin({
-            chunks: ["eventlet-example"],
-            filename: "eventlet-example/index.html",
-            template: "./src/eventlet-example/index.html",
+            chunks: ["hue-cycler"],
+            filename: "hue-cycler/index.html",
+            template: "./src/hue-cycler/index.html",
         }),
     ],
     resolve: {

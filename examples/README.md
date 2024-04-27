@@ -1,6 +1,6 @@
 # examples
 
-## eventlet-example
+## hue-cycler
 
 This example uses Eventlets to link together classes in a chain of event firing, using the Eventlet library.
 
