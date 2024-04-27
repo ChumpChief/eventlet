@@ -104,6 +104,33 @@ importers:
         specifier: ^5.4.5
         version: 5.4.5
 
+  packages/eventlet-tuple:
+    devDependencies:
+      '@jest/globals':
+        specifier: ^29.7.0
+        version: 29.7.0
+      '@typescript-eslint/eslint-plugin':
+        specifier: ^7.7.0
+        version: 7.7.0(@typescript-eslint/parser@7.7.0(eslint@8.57.0)(typescript@5.4.5))(eslint@8.57.0)(typescript@5.4.5)
+      '@typescript-eslint/parser':
+        specifier: ^7.7.0
+        version: 7.7.0(eslint@8.57.0)(typescript@5.4.5)
+      eslint:
+        specifier: ^8.57.0
+        version: 8.57.0
+      eslint-config-shared:
+        specifier: workspace:*
+        version: link:../../build/eslint-config-shared
+      jest:
+        specifier: ^29.7.0
+        version: 29.7.0(@types/node@20.12.7)
+      tsconfig-shared:
+        specifier: workspace:*
+        version: link:../../build/tsconfig-shared
+      typescript:
+        specifier: ^5.4.5
+        version: 5.4.5
+
 packages:
 
   '@aashutoshrathi/word-wrap@1.2.6':
