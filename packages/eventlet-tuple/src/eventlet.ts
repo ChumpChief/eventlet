@@ -1,4 +1,4 @@
-import type { EmitControl, Emitter, Listener } from "./typesTuple.js";
+import type { EmitControl, Emitter, Listener } from "./types.js";
 
 /**
  * Eventlet supports a minimal typed event pattern.  It is designed to be used as either a standalone object

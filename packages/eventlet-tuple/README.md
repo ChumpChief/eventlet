@@ -6,7 +6,7 @@ It is designed to be used as either a standalone object which emits events, or a
 
 ```ts
 // Event listener parameters can be strongly typed.
-const ev = new Eventlet<(greeting: string, subject: string) => void>();
+const ev = new Eventlet<[greeting: string, subject: string]>();
 ev.on((greeting, subject) => console.log(`${ greeting }, ${ subject }!`));
 ev.emit("Hello", "world"); // "Hello, world!"
 ```

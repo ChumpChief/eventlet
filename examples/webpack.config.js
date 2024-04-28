@@ -7,14 +7,10 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 // const require = createRequire(import.meta.url);
 
 export default {
-    devtool: "inline-source-map",
+    devtool: "source-map",
     entry: {
         "index": {
             import: "./src/index.tsx",
-        },
-        "eventlet-example": {
-            filename: "eventlet-example/[name].bundle.js",
-            import: "./src/eventlet-example/index.ts",
         },
         "eventlet-pack-test": {
             filename: "eventlet-pack-test/[name].bundle.js",
@@ -23,6 +19,14 @@ export default {
         "events-pack-test": {
             filename: "events-pack-test/[name].bundle.js",
             import: "./src/events-pack-test/index.ts",
+        },
+        "fireworks-director": {
+            filename: "fireworks-director/[name].bundle.js",
+            import: "./src/fireworks-director/index.ts",
+        },
+        "hue-cycler": {
+            filename: "hue-cycler/[name].bundle.js",
+            import: "./src/hue-cycler/index.ts",
         },
     },
     mode: "development",
@@ -50,9 +54,14 @@ export default {
             template: "./src/index.html",
         }),
         new HtmlWebpackPlugin({
-            chunks: ["eventlet-example"],
-            filename: "eventlet-example/index.html",
-            template: "./src/eventlet-example/index.html",
+            chunks: ["fireworks-director"],
+            filename: "fireworks-director/index.html",
+            template: "./src/fireworks-director/index.html",
+        }),
+        new HtmlWebpackPlugin({
+            chunks: ["hue-cycler"],
+            filename: "hue-cycler/index.html",
+            template: "./src/hue-cycler/index.html",
         }),
     ],
     resolve: {
