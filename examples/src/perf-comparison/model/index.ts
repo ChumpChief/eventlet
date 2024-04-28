@@ -1,1 +1,1 @@
-export { Firework, FireworksDirector } from "./fireworksDirector.js";
+export { PerfComparison } from "./perfComparison.js";

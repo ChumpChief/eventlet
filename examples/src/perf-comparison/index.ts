@@ -1,15 +1,15 @@
 import { createElement } from "react";
 import { createRoot } from "react-dom/client";
 
-import { FireworksDirector } from "./model/index.js";
-import { FireworksView } from "./view/index.js";
+import { PerfComparison } from "./model/index.js";
+import { PerfComparisonView } from "./view/index.js";
 
 const start = (): void => {
-    const fireworksDirector = new FireworksDirector();
+    const perfComparison = new PerfComparison();
 
     const contentDiv = document.getElementById("content") as HTMLDivElement;
     const reactRoot = createRoot(contentDiv);
-    reactRoot.render(createElement(FireworksView, { fireworksDirector }));
+    reactRoot.render(createElement(PerfComparisonView, { perfComparison }));
 };
 
 start();

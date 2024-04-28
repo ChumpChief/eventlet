@@ -1,1 +1,1 @@
-export { FireworksView } from "./fireworksView.js";
+export { PerfComparisonView } from "./perfComparisonView.js";
