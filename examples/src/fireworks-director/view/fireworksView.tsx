@@ -1,4 +1,4 @@
-import { type FC, useEffect, useRef, useCallback } from "react";
+import { type FC, useCallback, useEffect, useRef, useState } from "react";
 import { Firework, FireworksDirector } from "../model/index.js";
 
 export type FireworksViewProps = {
@@ -17,6 +17,9 @@ export const FireworksView: FC<FireworksViewProps> = ({ fireworksDirector }) => 
     const launchedFireworks = useRef(new Set<Firework>());
     const explosions = useRef(new Set<Explosion>());
 
+    const [launchedFireworksDebug, setLaunchedFireworksDebug] = useState(0);
+    const [explosionsDebug, setExplosionsDebug] = useState(0);
+
     useEffect(() => {
         const handleLaunched = (firework: Firework) => {
             const handleExploded = (radius: number, color: string) => {
@@ -28,9 +31,12 @@ export const FireworksView: FC<FireworksViewProps> = ({ fireworksDirector }) => 
                     color,
                     opacity: 1,
                 });
+                setExplosionsDebug(explosions.current.size);
                 launchedFireworks.current.delete(firework);
+                setLaunchedFireworksDebug(launchedFireworks.current.size);
             };
             launchedFireworks.current.add(firework);
+            setLaunchedFireworksDebug(launchedFireworks.current.size);
             firework.exploded.on(handleExploded);
         };
         fireworksDirector.launched.on(handleLaunched);
@@ -46,6 +52,7 @@ export const FireworksView: FC<FireworksViewProps> = ({ fireworksDirector }) => 
                 explosion.opacity -= 0.01;
                 if (explosion.opacity <= 0) {
                     explosions.current.delete(explosion);
+                    setExplosionsDebug(explosions.current.size);
                 }
             }
             requestId = requestAnimationFrame(fadeExplosions);
@@ -94,6 +101,12 @@ export const FireworksView: FC<FireworksViewProps> = ({ fireworksDirector }) => 
     }, []);
 
     return (
-        <canvas width={ 500 } height={ 500 } ref={renderScene}></canvas>
+        <>
+            <canvas width={ 500 } height={ 500 } ref={renderScene}></canvas>
+            <div>
+                Current launched firework count: { launchedFireworksDebug }<br></br>
+                Current explosion count: { explosionsDebug }
+            </div>
+        </>
     );
 };
