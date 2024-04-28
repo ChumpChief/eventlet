@@ -12,9 +12,9 @@ export const CircleView: FC<CircleViewProps> = ({ observableColor }) => {
         setCircleColor(observableColor.colorString);
     });
     useEffect(() => {
-        observableColor.colorChanged.on(onColorChangeRef.current);
+        observableColor.colorChanged.add(onColorChangeRef.current);
         return () => {
-            observableColor.colorChanged.off(onColorChangeRef.current);
+            observableColor.colorChanged.remove(onColorChangeRef.current);
         };
     }, [observableColor]);
     return (
@@ -26,10 +26,10 @@ export const CircleView: FC<CircleViewProps> = ({ observableColor }) => {
                 borderRadius: "50%",
                 backgroundColor: circleColor,
             }}></div>
-            <button onClick={ () => { observableColor.colorChanged.on(onColorChangeRef.current); } }>
+            <button onClick={ () => { observableColor.colorChanged.add(onColorChangeRef.current); } }>
                 Start listening to hue changes
             </button>
-            <button onClick={ () => { observableColor.colorChanged.off(onColorChangeRef.current); } }>
+            <button onClick={ () => { observableColor.colorChanged.remove(onColorChangeRef.current); } }>
                 Stop listening to hue changes
             </button>
         </div>

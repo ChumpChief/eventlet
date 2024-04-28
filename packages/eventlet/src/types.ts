@@ -18,10 +18,10 @@ export type Emitter<ListenerType extends UntypedListener = () => void> = {
     /**
      * Add a listener that will be called when the Emitter emits.
      */
-    readonly on: (listener: ListenerType) => void;
+    readonly add: (listener: ListenerType) => void;
     /**
      * Remove a listener from the set that will be called when the Emitter emits.  The listener must
      * be the same object reference that was used to register previously.
      */
-    readonly off: (listener: ListenerType) => void;
+    readonly remove: (listener: ListenerType) => void;
 };

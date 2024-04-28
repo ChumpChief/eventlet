@@ -17,10 +17,10 @@ export type Emitter<EventArgs extends unknown[] = []> = {
     /**
      * Add a listener that will be called when the Emitter emits.
      */
-    readonly on: (listener: Listener<EventArgs>) => void;
+    readonly add: (listener: Listener<EventArgs>) => void;
     /**
      * Remove a listener from the set that will be called when the Emitter emits.  The listener must
      * be the same object reference that was used to register previously.
      */
-    readonly off: (listener: Listener<EventArgs>) => void;
+    readonly remove: (listener: Listener<EventArgs>) => void;
 };

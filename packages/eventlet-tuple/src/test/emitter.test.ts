@@ -43,7 +43,7 @@ describe("Eventer", function() {
         });
 
         test("Can add a listener and emit to it", function() {
-            eventer.on(mockListener1);
+            eventer.add(mockListener1);
             eventer.emit();
             expect(mockListener1).lastCalledWith();
             expect(mockListener1).toBeCalledTimes(1);
@@ -53,8 +53,8 @@ describe("Eventer", function() {
         });
 
         test("Can add multiple listeners and emit to all of them", function() {
-            eventer.on(mockListener1);
-            eventer.on(mockListener2);
+            eventer.add(mockListener1);
+            eventer.add(mockListener2);
             eventer.emit();
             expect(mockListener1).lastCalledWith();
             expect(mockListener1).toBeCalledTimes(1);
@@ -68,37 +68,37 @@ describe("Eventer", function() {
         });
 
         test("Can remove a listener and it is no longer called", function() {
-            eventer.on(mockListener1);
+            eventer.add(mockListener1);
             eventer.emit();
             expect(mockListener1).lastCalledWith();
             expect(mockListener1).toBeCalledTimes(1);
-            eventer.off(mockListener1);
+            eventer.remove(mockListener1);
             eventer.emit();
             expect(mockListener1).lastCalledWith();
             expect(mockListener1).toBeCalledTimes(1);
         });
 
         test("Does nothing when removing an unregistered listener", function() {
-            eventer.on(mockListener1);
+            eventer.add(mockListener1);
             eventer.emit();
             expect(mockListener1).lastCalledWith();
             expect(mockListener1).toBeCalledTimes(1);
-            eventer.off(mockListener2);
+            eventer.remove(mockListener2);
             eventer.emit();
             expect(mockListener1).lastCalledWith();
             expect(mockListener1).toBeCalledTimes(2);
         });
 
         test("Does not double-register a listener", function() {
-            eventer.on(mockListener1);
+            eventer.add(mockListener1);
             eventer.emit();
             expect(mockListener1).lastCalledWith();
             expect(mockListener1).toBeCalledTimes(1);
-            eventer.on(mockListener1);
+            eventer.add(mockListener1);
             eventer.emit();
             expect(mockListener1).lastCalledWith();
             expect(mockListener1).toBeCalledTimes(2);
-            eventer.off(mockListener1);
+            eventer.remove(mockListener1);
             eventer.emit();
             expect(mockListener1).lastCalledWith();
             expect(mockListener1).toBeCalledTimes(2);
@@ -117,23 +117,23 @@ describe("Eventer", function() {
             });
 
             // Listeners should fire in the order they were added
-            eventer.on(orderedListener1);
-            eventer.on(orderedListener2);
-            eventer.on(orderedListener3);
+            eventer.add(orderedListener1);
+            eventer.add(orderedListener2);
+            eventer.add(orderedListener3);
             eventer.emit();
             expect(orderedListener1).toBeCalledTimes(1);
             expect(orderedListener2).toBeCalledTimes(1);
             expect(orderedListener3).toBeCalledTimes(1);
 
-            eventer.off(orderedListener2);
+            eventer.remove(orderedListener2);
             // Re-adding an already-registered listener should not change the order
-            eventer.on(orderedListener1);
+            eventer.add(orderedListener1);
             eventer.emit();
             expect(orderedListener1).toBeCalledTimes(2);
             expect(orderedListener2).toBeCalledTimes(1);
             expect(orderedListener3).toBeCalledTimes(2);
 
-            eventer.on(orderedListener2);
+            eventer.add(orderedListener2);
             eventer.emit();
             expect(orderedListener1).toBeCalledTimes(3);
             expect(orderedListener2).toBeCalledTimes(2);
@@ -154,7 +154,7 @@ describe("Eventer", function() {
         });
 
         test("Can add a listener and emit to it", function() {
-            eventer.on(mockListener1);
+            eventer.add(mockListener1);
             eventer.emit(1, "hi");
             expect(mockListener1).lastCalledWith(1, "hi");
             expect(mockListener1).toBeCalledTimes(1);
@@ -164,8 +164,8 @@ describe("Eventer", function() {
         });
 
         test("Can add multiple listeners and emit to all of them", function() {
-            eventer.on(mockListener1);
-            eventer.on(mockListener2);
+            eventer.add(mockListener1);
+            eventer.add(mockListener2);
             eventer.emit(1, "hi");
             expect(mockListener1).lastCalledWith(1, "hi");
             expect(mockListener1).toBeCalledTimes(1);
@@ -189,35 +189,35 @@ describe("Eventer", function() {
 
         test("Regular function (unbound) has no this", function() {
             // eslint-disable-next-line @typescript-eslint/unbound-method
-            eventer.on(classObject.regularFunction);
+            eventer.add(classObject.regularFunction);
             expect(() => { eventer.emit(); }).toThrow();
         });
 
         test("Regular function (unbound) has no this - emit check", function() {
             // eslint-disable-next-line @typescript-eslint/unbound-method
-            eventer.on(classObject.regularFunctionEmitCheck);
+            eventer.add(classObject.regularFunctionEmitCheck);
             expect(() => { eventer.emit(); }).toThrow();
         });
 
         test("Arrow function uses correct this", function() {
-            eventer.on(classObject.arrowFunction);
+            eventer.add(classObject.arrowFunction);
             eventer.emit();
             expect(classObject.classMethod).toBeCalledTimes(1);
         });
 
         test("Arrow function uses correct this - emit check", function() {
-            eventer.on(classObject.arrowFunctionEmitCheck);
+            eventer.add(classObject.arrowFunctionEmitCheck);
             eventer.emit();
         });
 
         test("Regular function bound uses correct this", function() {
-            eventer.on(classObject.regularFunctionBound);
+            eventer.add(classObject.regularFunctionBound);
             eventer.emit();
             expect(classObject.classMethod).toBeCalledTimes(1);
         });
 
         test("Regular function bound uses correct this - emit check", function() {
-            eventer.on(classObject.regularFunctionBoundEmitCheck);
+            eventer.add(classObject.regularFunctionBoundEmitCheck);
             eventer.emit();
         });
     });
