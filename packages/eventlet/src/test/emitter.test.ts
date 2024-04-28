@@ -190,13 +190,13 @@ describe("Eventer", function() {
         test("Regular function (unbound) has no this", function() {
             // eslint-disable-next-line @typescript-eslint/unbound-method
             eventer.add(classObject.regularFunction);
-            expect(() => { eventer.emit(); }).toThrow();
+            expect(() => { eventer.emit(); }).toThrow("Cannot read properties of undefined");
         });
 
         test("Regular function (unbound) has no this - emit check", function() {
             // eslint-disable-next-line @typescript-eslint/unbound-method
             eventer.add(classObject.regularFunctionEmitCheck);
-            expect(() => { eventer.emit(); }).toThrow();
+            expect(() => { eventer.emit(); }).toThrow("Cannot convert undefined or null to object");
         });
 
         test("Arrow function uses correct this", function() {
