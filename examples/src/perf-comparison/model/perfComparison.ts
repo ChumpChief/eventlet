@@ -33,6 +33,8 @@ export class PerfComparison {
         console.log(`runRegisterUnregisterTestEventEmitter phase 2: ${ phase2Duration }`);
 
         const phase3StartTime = Date.now();
+        // EventEmitter can unregister more quickly from the end of the list, since it does
+        // an array splice for each removal.
         // for (let i = ITERATION_COUNT - 1; i >= 0; i--) {
         for (let i = 0; i < ITERATION_COUNT; i++) {
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -126,7 +128,7 @@ export class PerfComparison {
         }
         const phase1EndTime = Date.now();
         const phase1Duration = phase1EndTime - phase1StartTime;
-        console.log(`runEmitTestEventEmitter phase 1: ${ phase1Duration }`);
+        console.log(`runEmitTestEventlet phase 1: ${ phase1Duration }`);
 
         eventlet.remove(eventListener);
         for (let i = 0; i < ITERATION_COUNT; i++) {
@@ -140,7 +142,7 @@ export class PerfComparison {
         }
         const phase2EndTime = Date.now();
         const phase2Duration = phase2EndTime - phase2StartTime;
-        console.log(`runEmitTestEventEmitter phase 2: ${ phase2Duration }`);
+        console.log(`runEmitTestEventlet phase 2: ${ phase2Duration }`);
 
         return phase1Duration + phase2Duration;
     };
