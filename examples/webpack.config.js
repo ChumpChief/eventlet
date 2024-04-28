@@ -28,6 +28,10 @@ export default {
             filename: "hue-cycler/[name].bundle.js",
             import: "./src/hue-cycler/index.ts",
         },
+        "perf-comparison": {
+            filename: "perf-comparison/[name].bundle.js",
+            import: "./src/perf-comparison/index.ts",
+        },
     },
     mode: "development",
     module: {
@@ -62,6 +66,11 @@ export default {
             chunks: ["hue-cycler"],
             filename: "hue-cycler/index.html",
             template: "./src/hue-cycler/index.html",
+        }),
+        new HtmlWebpackPlugin({
+            chunks: ["perf-comparison"],
+            filename: "perf-comparison/index.html",
+            template: "./src/perf-comparison/index.html",
         }),
     ],
     resolve: {
