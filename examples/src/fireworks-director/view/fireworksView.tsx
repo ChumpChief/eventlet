@@ -63,11 +63,13 @@ export const FireworksView: FC<FireworksViewProps> = ({ fireworksDirector }) => 
         };
     });
 
-    const renderScene = useCallback((canvasElem: HTMLCanvasElement) => {
+    const renderScene = useCallback((canvasElem: HTMLCanvasElement | null) => {
         let requestId: number | undefined;
         // TODO: Whenver cleanup function reaches stable support, remove this and return the cleanup function
-        if (canvasElem === null && requestId !== undefined) {
-            cancelAnimationFrame(requestId);
+        if (canvasElem === null) {
+            if (requestId !== undefined) {
+                cancelAnimationFrame(requestId);
+            }
             return;
         }
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
