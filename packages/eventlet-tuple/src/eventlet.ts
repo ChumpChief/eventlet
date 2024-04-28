@@ -14,11 +14,11 @@ export class Eventlet<EventArgs extends unknown[] = []> implements EmitControl<E
         }
     };
 
-    public readonly on = (listener: Listener<EventArgs>) => {
+    public readonly add = (listener: Listener<EventArgs>) => {
         this.listeners.add(listener);
     };
 
-    public readonly off = (listener: Listener<EventArgs>) => {
+    public readonly remove = (listener: Listener<EventArgs>) => {
         this.listeners.delete(listener);
     };
 }

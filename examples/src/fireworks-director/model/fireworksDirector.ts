@@ -43,7 +43,7 @@ export class Firework {
         const RADIUS_MINIMUM = 50;
         const RADIUS_VARIANCE = 100;
 
-        getPhysicsClock().off(this.tickPhysics);
+        getPhysicsClock().remove(this.tickPhysics);
         const radius = (Math.random() * RADIUS_VARIANCE) + RADIUS_MINIMUM;
         const hue = Math.random() * 360;
         const color = `hsl(${ hue } 100% 50%)`;
@@ -69,7 +69,7 @@ export class Firework {
         const x = (Math.random() * HORIZONTAL_VARIANCE) - (HORIZONTAL_VARIANCE / 2);
         const y = (Math.random() * VERTICAL_VARIANCE) + VERTICAL_MINIMUM;
         this.velocity = { x, y };
-        getPhysicsClock().on(this.tickPhysics);
+        getPhysicsClock().add(this.tickPhysics);
         setTimeout(this.explode, (Math.random() * 2000) + 2000);
     }
 }

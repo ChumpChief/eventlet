@@ -14,11 +14,11 @@ export class Eventlet<Listener extends UntypedListener = () => void> implements 
         }
     };
 
-    public readonly on = (listener: Listener) => {
+    public readonly add = (listener: Listener) => {
         this.listeners.add(listener);
     };
 
-    public readonly off = (listener: Listener) => {
+    public readonly remove = (listener: Listener) => {
         this.listeners.delete(listener);
     };
 }

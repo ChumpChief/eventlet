@@ -23,7 +23,7 @@ export const FireworksView: FC<FireworksViewProps> = ({ fireworksDirector }) => 
     useEffect(() => {
         const handleLaunched = (firework: Firework) => {
             const handleExploded = (radius: number, color: string) => {
-                firework.exploded.off(handleExploded);
+                firework.exploded.remove(handleExploded);
                 explosions.current.add({
                     x: firework.position.x,
                     y: firework.position.y,
@@ -37,11 +37,11 @@ export const FireworksView: FC<FireworksViewProps> = ({ fireworksDirector }) => 
             };
             launchedFireworks.current.add(firework);
             setLaunchedFireworksDebug(launchedFireworks.current.size);
-            firework.exploded.on(handleExploded);
+            firework.exploded.add(handleExploded);
         };
-        fireworksDirector.launched.on(handleLaunched);
+        fireworksDirector.launched.add(handleLaunched);
         return () => {
-            fireworksDirector.launched.off(handleLaunched);
+            fireworksDirector.launched.remove(handleLaunched);
         };
     }, [fireworksDirector]);
 

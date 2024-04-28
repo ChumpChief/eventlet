@@ -13,7 +13,7 @@ export class HueColorAdapter {
     }
 
     public constructor(private readonly observableHue: ObservableHue) {
-        this.observableHue.hueChanged.on(() => {
+        this.observableHue.hueChanged.add(() => {
             this._colorChanged.emit();
         });
     }
