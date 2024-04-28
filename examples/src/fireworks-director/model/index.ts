@@ -1,1 +1,1 @@
-export { FireworksDirector } from "./fireworksDirector.js";
+export { Firework, FireworksDirector } from "./fireworksDirector.js";
