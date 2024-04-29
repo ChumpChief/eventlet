@@ -221,4 +221,38 @@ describe("Eventer", function() {
             eventer.emit();
         });
     });
+
+    describe("Once", function() {
+        let eventer: Eventlet;
+        let mockListener1: jest.Mock<EmptyListenerType>;
+        beforeEach(function() {
+            eventer = new Eventlet();
+            mockListener1 = jest.fn();
+        });
+
+        test("Can register a listener with once and it only fires once", function() {
+            eventer.add(mockListener1, { once: true });
+            eventer.emit();
+            expect(mockListener1).lastCalledWith();
+            expect(mockListener1).toBeCalledTimes(1);
+            eventer.emit();
+            expect(mockListener1).toBeCalledTimes(1);
+        });
+
+        test("Can re-register a once listener for another single firing", function() {
+            eventer.add(mockListener1, { once: true });
+            eventer.emit();
+            expect(mockListener1).lastCalledWith();
+            expect(mockListener1).toBeCalledTimes(1);
+            eventer.emit();
+            expect(mockListener1).toBeCalledTimes(1);
+
+            eventer.add(mockListener1, { once: true });
+            eventer.emit();
+            expect(mockListener1).lastCalledWith();
+            expect(mockListener1).toBeCalledTimes(2);
+            eventer.emit();
+            expect(mockListener1).toBeCalledTimes(2);
+        });
+    });
 });
