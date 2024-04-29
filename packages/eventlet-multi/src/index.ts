@@ -1,6 +1,6 @@
 export { Eventlet } from "./eventlet.js";
 export type {
-    EmitControl,
-    Emitter,
+    MultiEmitControl as EmitControl,
+    MultiEmitter as Emitter,
     UntypedListener,
 } from "./types.js";

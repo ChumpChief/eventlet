@@ -1,4 +1,12 @@
-import type { EmitControl, Emitter, SupportedOptions, UntypedListener } from "./types.js";
+import type {
+    EmitControl,
+    Emitter,
+    MultiEmitControl,
+    MultiEmitter,
+    MultiListenerType,
+    SupportedOptions,
+    UntypedListener,
+} from "./types.js";
 
 type ListenerWithMetadata<Listener> = {
     listener: Listener;
@@ -42,5 +50,31 @@ export class Eventlet<Listener extends UntypedListener = () => void> implements 
         if (matchingListenerWithMetadata !== undefined) {
             this.listenersWithMetadata.delete(matchingListenerWithMetadata);
         }
+    };
+}
+
+type MultiEventletRegistry<MultiListener extends MultiListenerType> = {
+    [EventName in keyof MultiListener]?: Eventlet<MultiListener[EventName]>;
+};
+
+export class MultiEventlet<MultiListener extends MultiListenerType> implements MultiEmitControl<MultiListener>, MultiEmitter<MultiListener> {
+    private readonly eventletRegistry: MultiEventletRegistry<MultiListener> = {};
+    public readonly emit = <EventName extends keyof MultiListener>(eventName: EventName, ...args: Parameters<MultiListener[EventName]>) => {
+        const eventlet = this.eventletRegistry[eventName];
+        if (eventlet === undefined) {
+            return;
+        }
+        eventlet.emit(...args);
+    };
+
+    public readonly add = <EventName extends keyof MultiListener>(eventName: EventName, listener: MultiListener[EventName], options: SupportedOptions = { once: false }) => {
+        this.eventletRegistry[eventName] ??= new Eventlet();
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const eventlet = this.eventletRegistry[eventName]!;
+        eventlet.add(listener, options);
+    };
+
+    public readonly remove = <EventName extends keyof MultiListener>(eventName: EventName, listener: MultiListener[EventName]) => {
+        this.eventletRegistry[eventName]?.remove(listener);
     };
 }
