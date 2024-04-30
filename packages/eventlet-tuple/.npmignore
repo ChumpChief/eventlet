@@ -1,6 +1,0 @@
-.DS_Store
-.eslintrc.cjs
-tsconfig.json
-src/
-built/**/test/
-*.map

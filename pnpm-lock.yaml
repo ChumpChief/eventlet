@@ -34,6 +34,9 @@ importers:
         specifier: ^18.3.1
         version: 18.3.1(react@18.3.1)
     devDependencies:
+      '@jest/globals':
+        specifier: ^29.7.0
+        version: 29.7.0
       '@types/events':
         specifier: ^3.0.3
         version: 3.0.3
@@ -58,6 +61,9 @@ importers:
       html-webpack-plugin:
         specifier: ^5.6.0
         version: 5.6.0(webpack@5.91.0(webpack-cli@5.1.4))
+      jest:
+        specifier: ^29.7.0
+        version: 29.7.0(@types/node@20.12.7)
       ts-loader:
         specifier: ^9.5.1
         version: 9.5.1(typescript@5.4.5)(webpack@5.91.0(webpack-cli@5.1.4))
@@ -78,33 +84,6 @@ importers:
         version: 5.0.4(webpack-cli@5.1.4)(webpack@5.91.0)
 
   packages/eventlet:
-    devDependencies:
-      '@jest/globals':
-        specifier: ^29.7.0
-        version: 29.7.0
-      '@typescript-eslint/eslint-plugin':
-        specifier: ^7.7.1
-        version: 7.7.1(@typescript-eslint/parser@7.7.1(eslint@8.57.0)(typescript@5.4.5))(eslint@8.57.0)(typescript@5.4.5)
-      '@typescript-eslint/parser':
-        specifier: ^7.7.1
-        version: 7.7.1(eslint@8.57.0)(typescript@5.4.5)
-      eslint:
-        specifier: ^8.57.0
-        version: 8.57.0
-      eslint-config-shared:
-        specifier: workspace:*
-        version: link:../../build/eslint-config-shared
-      jest:
-        specifier: ^29.7.0
-        version: 29.7.0(@types/node@20.12.7)
-      tsconfig-shared:
-        specifier: workspace:*
-        version: link:../../build/tsconfig-shared
-      typescript:
-        specifier: ^5.4.5
-        version: 5.4.5
-
-  packages/eventlet-tuple:
     devDependencies:
       '@jest/globals':
         specifier: ^29.7.0
