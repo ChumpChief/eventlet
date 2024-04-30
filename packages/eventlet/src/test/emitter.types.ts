@@ -1,11 +1,10 @@
-import {
-    // EmitControl,
-    type Emitter,
-    // type Eventlet,
-    type UntypedListener,
+import type {
+    EmitControl,
+    Emitter,
+    UntypedListener,
 } from "../index.js";
 
-/* eslint-disable @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars, @typescript-eslint/ban-ts-comment */
+/* eslint-disable @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars, @typescript-eslint/ban-ts-comment, @typescript-eslint/ban-types */
 
 declare let untyped: UntypedListener;
 untyped = () => {};
@@ -48,6 +47,10 @@ emitter.remove(() => {});
 emitter.add((foo: string) => {});
 // @ts-expect-error
 emitter.remove((foo: string) => {});
+// Note that we can register listeners that don't absolutely require the argument be passed.
+// The EmitControl is more strict about disallowing unexpected emit parameters to avoid a mismatch.
+emitter.add((foo?: string) => {});
+emitter.remove((foo?: string) => {});
 // Non-void functions are assignable to void functions, so this is allowed
 emitter.add(() => 3);
 emitter.remove(() => "hi");
@@ -103,3 +106,36 @@ emitter2.remove((foo: string, bar: number, woz: boolean) => {});
 emitter2.remove((foo: number, bar: number) => {});
 // @ts-expect-error
 emitter2.remove((foo: string, bar: string) => {});
+
+declare let emitControl: EmitControl;
+emitControl = { emit: () => {} };
+// The EmitControl wouldn't pass the expected foo here, so it's not allowed
+// @ts-expect-error
+emitControl = { emit: (foo: string) => {} };
+
+emitControl.emit();
+// Remember above that the user might have registered something like (foo?: number) => {}, so
+// we need to disallow any unexpected emit parameters.
+// @ts-expect-error
+emitControl.emit("hi");
+
+declare let emitControl2: EmitControl<TestListenerType>;
+// Again, an EmitControl that ignores passed emit params wouldn't be a good implementation, but
+// it's not type-broken
+emitControl2 = { emit: () => {} };
+emitControl2 = { emit: (foo: string) => {} };
+emitControl2 = { emit: (foo: string, bar: number) => {} };
+// @ts-expect-error
+emitControl2 = { emit: (foo: number, bar: number) => {} };
+// Users of EmitControl<TestListenerType> wouldn't pass woz, so this would break
+// @ts-expect-error
+emitControl2 = { emit: (foo: string, bar: number, woz: boolean) => {} };
+
+emitControl2.emit("hi", 3);
+// @ts-expect-error
+emitControl2.emit("hi", "bye");
+// @ts-expect-error
+emitControl2.emit();
+// Again don't emit anything unexpected in case the listener has optional parameters
+// @ts-expect-error
+emitControl2.emit("hi", 3, true);
