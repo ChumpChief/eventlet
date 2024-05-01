@@ -2,16 +2,15 @@
 
 Eventlet is a minimal typed event library.
 
-It is designed to be used as either a standalone object which emits events, or as a member property of a class that emits events.
+It is designed to be used as either a standalone object which emits events, or as a member property of a class that emits events.  You can create an Eventlet and specify the listener signature like this:
 
 ```ts
-// Event listener parameters can be strongly typed.
-const ev = new Eventlet<(greeting: string, subject: string) => void>();
-ev.add((greeting, subject) => console.log(`${ greeting }, ${ subject }!`));
-ev.emit("Hello", "world"); // "Hello, world!"
+const greeter = new Eventlet<(greeting: string, subject: string) => void>();
+greeter.add((greeting, subject) => console.log(`${ greeting }, ${ subject }!`));
+greeter.emit("Hello", "world"); // "Hello, world!"
 ```
 
-The ability to emit is typed separately from the ability to register listeners, making it easy to hide emit capabilities from your public interfaces.
+The ability to emit is typed separately from the ability to register listeners (`EmitControl` vs. `Emitter`, respectively), making it easy to hide emit capabilities from your public interfaces:
 
 ```ts
 class ClassWithChangingProperty {
@@ -34,6 +33,22 @@ class ClassWithChangingProperty {
 }
 ```
 
-Note that each Eventlet is designed to be used for a single event type.  For a scenario with multiple event types, use multiple Eventlets.
+Also note that if you don't specify a listener signature, it defaults to `() => void`.
 
-Eventlet should not be used as a superclass.  Instead add an Eventlet as a member property of the class that will use it.
+Listeners can be removed when they are no longer needed.  Pass the same function reference that was originally added.
+
+```ts
+type MessageReceivedListener = (message: string) => void;
+const messageReceived = new Eventlet<MessageReceivedListener>();
+const onMessageReceived = (message: string) => { /* ... */};
+messageReceived.add(onMessageReceived);
+messageReceived.emit("Hello!");
+// ...time passes...
+messageReceived.remove(onMessageReceived);
+```
+
+## Usage recommendations
+
+* Each Eventlet is designed to be used for a single event type.  For a scenario with multiple event types, use multiple Eventlets.
+* Eventlet should not be used as a superclass.  Instead add an Eventlet as a member property of the class that will use it.
+* Since references to the registered listeners are held by the Eventlet, it's important to remove them when they're no longer needed so they can be garbage collected appropriately.
