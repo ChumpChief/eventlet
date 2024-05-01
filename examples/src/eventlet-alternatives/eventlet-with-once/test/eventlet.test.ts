@@ -26,41 +26,41 @@ class TestClass {
     };
 }
 
-describe("Eventer", function() {
+describe("Eventlet", function() {
     test("Can be constructed", function() {
-        const eventer = new Eventlet();
-        expect(eventer).not.toBeUndefined();
+        const eventlet = new Eventlet();
+        expect(eventlet).not.toBeUndefined();
     });
 
     describe("Empty listener", function() {
-        let eventer: Eventlet;
+        let eventlet: Eventlet;
         let mockListener1: jest.Mock<EmptyListenerType>;
         let mockListener2: jest.Mock<EmptyListenerType>;
         beforeEach(function() {
-            eventer = new Eventlet();
+            eventlet = new Eventlet();
             mockListener1 = jest.fn();
             mockListener2 = jest.fn();
         });
 
         test("Can add a listener and emit to it", function() {
-            eventer.add(mockListener1);
-            eventer.emit();
+            eventlet.add(mockListener1);
+            eventlet.emit();
             expect(mockListener1).lastCalledWith();
             expect(mockListener1).toBeCalledTimes(1);
-            eventer.emit();
+            eventlet.emit();
             expect(mockListener1).lastCalledWith();
             expect(mockListener1).toBeCalledTimes(2);
         });
 
         test("Can add multiple listeners and emit to all of them", function() {
-            eventer.add(mockListener1);
-            eventer.add(mockListener2);
-            eventer.emit();
+            eventlet.add(mockListener1);
+            eventlet.add(mockListener2);
+            eventlet.emit();
             expect(mockListener1).lastCalledWith();
             expect(mockListener1).toBeCalledTimes(1);
             expect(mockListener2).lastCalledWith();
             expect(mockListener2).toBeCalledTimes(1);
-            eventer.emit();
+            eventlet.emit();
             expect(mockListener1).lastCalledWith();
             expect(mockListener1).toBeCalledTimes(2);
             expect(mockListener2).lastCalledWith();
@@ -68,38 +68,38 @@ describe("Eventer", function() {
         });
 
         test("Can remove a listener and it is no longer called", function() {
-            eventer.add(mockListener1);
-            eventer.emit();
+            eventlet.add(mockListener1);
+            eventlet.emit();
             expect(mockListener1).lastCalledWith();
             expect(mockListener1).toBeCalledTimes(1);
-            eventer.remove(mockListener1);
-            eventer.emit();
+            eventlet.remove(mockListener1);
+            eventlet.emit();
             expect(mockListener1).lastCalledWith();
             expect(mockListener1).toBeCalledTimes(1);
         });
 
         test("Does nothing when removing an unregistered listener", function() {
-            eventer.add(mockListener1);
-            eventer.emit();
+            eventlet.add(mockListener1);
+            eventlet.emit();
             expect(mockListener1).lastCalledWith();
             expect(mockListener1).toBeCalledTimes(1);
-            eventer.remove(mockListener2);
-            eventer.emit();
+            eventlet.remove(mockListener2);
+            eventlet.emit();
             expect(mockListener1).lastCalledWith();
             expect(mockListener1).toBeCalledTimes(2);
         });
 
         test("Does not double-register a listener", function() {
-            eventer.add(mockListener1);
-            eventer.emit();
+            eventlet.add(mockListener1);
+            eventlet.emit();
             expect(mockListener1).lastCalledWith();
             expect(mockListener1).toBeCalledTimes(1);
-            eventer.add(mockListener1);
-            eventer.emit();
+            eventlet.add(mockListener1);
+            eventlet.emit();
             expect(mockListener1).lastCalledWith();
             expect(mockListener1).toBeCalledTimes(2);
-            eventer.remove(mockListener1);
-            eventer.emit();
+            eventlet.remove(mockListener1);
+            eventlet.emit();
             expect(mockListener1).lastCalledWith();
             expect(mockListener1).toBeCalledTimes(2);
         });
@@ -117,24 +117,24 @@ describe("Eventer", function() {
             });
 
             // Listeners should fire in the order they were added
-            eventer.add(orderedListener1);
-            eventer.add(orderedListener2);
-            eventer.add(orderedListener3);
-            eventer.emit();
+            eventlet.add(orderedListener1);
+            eventlet.add(orderedListener2);
+            eventlet.add(orderedListener3);
+            eventlet.emit();
             expect(orderedListener1).toBeCalledTimes(1);
             expect(orderedListener2).toBeCalledTimes(1);
             expect(orderedListener3).toBeCalledTimes(1);
 
-            eventer.remove(orderedListener2);
+            eventlet.remove(orderedListener2);
             // Re-adding an already-registered listener should not change the order
-            eventer.add(orderedListener1);
-            eventer.emit();
+            eventlet.add(orderedListener1);
+            eventlet.emit();
             expect(orderedListener1).toBeCalledTimes(2);
             expect(orderedListener2).toBeCalledTimes(1);
             expect(orderedListener3).toBeCalledTimes(2);
 
-            eventer.add(orderedListener2);
-            eventer.emit();
+            eventlet.add(orderedListener2);
+            eventlet.emit();
             expect(orderedListener1).toBeCalledTimes(3);
             expect(orderedListener2).toBeCalledTimes(2);
             expect(orderedListener3).toBeCalledTimes(3);
@@ -144,34 +144,34 @@ describe("Eventer", function() {
     });
 
     describe("Non-empty listener", function() {
-        let eventer: Eventlet<TestListenerType>;
+        let eventlet: Eventlet<TestListenerType>;
         let mockListener1: jest.Mock<TestListenerType>;
         let mockListener2: jest.Mock<TestListenerType>;
         beforeEach(function() {
-            eventer = new Eventlet();
+            eventlet = new Eventlet();
             mockListener1 = jest.fn();
             mockListener2 = jest.fn();
         });
 
         test("Can add a listener and emit to it", function() {
-            eventer.add(mockListener1);
-            eventer.emit(1, "hi");
+            eventlet.add(mockListener1);
+            eventlet.emit(1, "hi");
             expect(mockListener1).lastCalledWith(1, "hi");
             expect(mockListener1).toBeCalledTimes(1);
-            eventer.emit(2, "bye");
+            eventlet.emit(2, "bye");
             expect(mockListener1).lastCalledWith(2, "bye");
             expect(mockListener1).toBeCalledTimes(2);
         });
 
         test("Can add multiple listeners and emit to all of them", function() {
-            eventer.add(mockListener1);
-            eventer.add(mockListener2);
-            eventer.emit(1, "hi");
+            eventlet.add(mockListener1);
+            eventlet.add(mockListener2);
+            eventlet.emit(1, "hi");
             expect(mockListener1).lastCalledWith(1, "hi");
             expect(mockListener1).toBeCalledTimes(1);
             expect(mockListener2).lastCalledWith(1, "hi");
             expect(mockListener2).toBeCalledTimes(1);
-            eventer.emit(2, "bye");
+            eventlet.emit(2, "bye");
             expect(mockListener1).lastCalledWith(2, "bye");
             expect(mockListener1).toBeCalledTimes(2);
             expect(mockListener2).lastCalledWith(2, "bye");
@@ -180,78 +180,78 @@ describe("Eventer", function() {
     });
 
     describe("Method binding", function() {
-        let eventer: Eventlet;
+        let eventlet: Eventlet;
         let classObject: TestClass;
         beforeEach(function() {
-            eventer = new Eventlet();
+            eventlet = new Eventlet();
             classObject = new TestClass();
         });
 
         test("Regular function (unbound) has no this", function() {
             // eslint-disable-next-line @typescript-eslint/unbound-method
-            eventer.add(classObject.regularFunction);
-            expect(() => { eventer.emit(); }).toThrow("Cannot read properties of undefined");
+            eventlet.add(classObject.regularFunction);
+            expect(() => { eventlet.emit(); }).toThrow("Cannot read properties of undefined");
         });
 
         test("Regular function (unbound) has no this - emit check", function() {
             // eslint-disable-next-line @typescript-eslint/unbound-method
-            eventer.add(classObject.regularFunctionEmitCheck);
-            expect(() => { eventer.emit(); }).toThrow("Cannot convert undefined or null to object");
+            eventlet.add(classObject.regularFunctionEmitCheck);
+            expect(() => { eventlet.emit(); }).toThrow("Cannot convert undefined or null to object");
         });
 
         test("Arrow function uses correct this", function() {
-            eventer.add(classObject.arrowFunction);
-            eventer.emit();
+            eventlet.add(classObject.arrowFunction);
+            eventlet.emit();
             expect(classObject.classMethod).toBeCalledTimes(1);
         });
 
         test("Arrow function uses correct this - emit check", function() {
-            eventer.add(classObject.arrowFunctionEmitCheck);
-            eventer.emit();
+            eventlet.add(classObject.arrowFunctionEmitCheck);
+            eventlet.emit();
         });
 
         test("Regular function bound uses correct this", function() {
-            eventer.add(classObject.regularFunctionBound);
-            eventer.emit();
+            eventlet.add(classObject.regularFunctionBound);
+            eventlet.emit();
             expect(classObject.classMethod).toBeCalledTimes(1);
         });
 
         test("Regular function bound uses correct this - emit check", function() {
-            eventer.add(classObject.regularFunctionBoundEmitCheck);
-            eventer.emit();
+            eventlet.add(classObject.regularFunctionBoundEmitCheck);
+            eventlet.emit();
         });
     });
 
     describe("Once", function() {
-        let eventer: Eventlet;
+        let eventlet: Eventlet;
         let mockListener1: jest.Mock<EmptyListenerType>;
         beforeEach(function() {
-            eventer = new Eventlet();
+            eventlet = new Eventlet();
             mockListener1 = jest.fn();
         });
 
         test("Can register a listener with once and it only fires once", function() {
-            eventer.add(mockListener1, { once: true });
-            eventer.emit();
+            eventlet.add(mockListener1, { once: true });
+            eventlet.emit();
             expect(mockListener1).lastCalledWith();
             expect(mockListener1).toBeCalledTimes(1);
-            eventer.emit();
+            eventlet.emit();
             expect(mockListener1).toBeCalledTimes(1);
         });
 
         test("Can re-register a once listener for another single firing", function() {
-            eventer.add(mockListener1, { once: true });
-            eventer.emit();
+            eventlet.add(mockListener1, { once: true });
+            eventlet.emit();
             expect(mockListener1).lastCalledWith();
             expect(mockListener1).toBeCalledTimes(1);
-            eventer.emit();
+            eventlet.emit();
             expect(mockListener1).toBeCalledTimes(1);
 
-            eventer.add(mockListener1, { once: true });
-            eventer.emit();
+            eventlet.add(mockListener1, { once: true });
+            eventlet.emit();
             expect(mockListener1).lastCalledWith();
             expect(mockListener1).toBeCalledTimes(2);
-            eventer.emit();
+            eventlet.emit();
             expect(mockListener1).toBeCalledTimes(2);
         });
     });

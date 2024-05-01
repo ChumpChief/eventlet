@@ -1,5 +1,6 @@
 /**
- * The untyped listener is the least-constrained listener type Eventlet will accept.  Prefer to define a strict listener type.
+ * The untyped listener is the least-constrained listener type Eventlet will accept (any void function).
+ * Prefer to define a strict listener type.
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type UntypedListener = (...args: any[]) => void;
