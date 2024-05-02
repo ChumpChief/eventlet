@@ -14,11 +14,11 @@ The ability to emit is typed separately from the ability to register listeners (
 
 ```ts
 class ClassWithChangingProperty {
-    private _prop = "";
+    private _prop = 3;
     public get prop() {
         return this._prop;
     }
-    public set prop(newValue: string) {
+    public set prop(newValue: number) {
         this._prop = newValue;
         this._propChanged.emit();
     }
@@ -33,16 +33,16 @@ class ClassWithChangingProperty {
 }
 ```
 
-Also note that if you don't specify a listener signature, it defaults to `() => void`.
+If you don't specify a listener signature, it defaults to `() => void`.
 
 Listeners can be removed when they are no longer needed.  Pass the same function reference that was originally added.
 
 ```ts
 type MessageReceivedListener = (message: string) => void;
 const messageReceived = new Eventlet<MessageReceivedListener>();
-const onMessageReceived = (message: string) => { /* ... */};
+const onMessageReceived = (message: string) => console.log(message);
 messageReceived.add(onMessageReceived);
-messageReceived.emit("Hello!");
+messageReceived.emit("Hello!"); // "Hello!"
 // ...time passes...
 messageReceived.remove(onMessageReceived);
 ```
