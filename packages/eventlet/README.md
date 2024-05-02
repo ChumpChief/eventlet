@@ -6,7 +6,8 @@ It is designed to be used as either a standalone object which emits events, or a
 
 ```ts
 const greeter = new Eventlet<(greeting: string, subject: string) => void>();
-greeter.add((greeting, subject) => console.log(`${ greeting }, ${ subject }!`));
+const onGreet = (greeting: string, subject: string) => console.log(`${ greeting }, ${ subject }!`);
+greeter.add(onGreet);
 greeter.emit("Hello", "world"); // "Hello, world!"
 ```
 
@@ -24,7 +25,7 @@ class ClassWithChangingProperty {
     }
 
     // The default listener signature has no parameters if event typing is not provided.
-    private _propChanged = new Eventlet();
+    private readonly _propChanged = new Eventlet();
     // The public interface can just expose the Emitter capability of the Eventlet.
     // This keeps its EmitControl capability private.
     public get propChanged(): Emitter {
@@ -51,4 +52,4 @@ messageReceived.remove(onMessageReceived);
 
 * Each Eventlet is designed to be used for a single event type.  For a scenario with multiple event types, use multiple Eventlets.
 * Eventlet should not be used as a superclass.  Instead add an Eventlet as a member property of the class that will use it.
-* Since references to the registered listeners are held by the Eventlet, it's important to remove them when they're no longer needed so they can be garbage collected appropriately.
+* References to the registered listeners are held by the Eventlet.  Be sure to remove them when they're no longer needed so they can be garbage collected appropriately.
