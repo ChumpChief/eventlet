@@ -1,5 +1,0 @@
----
-"eventlet": minor
----
-
-Initial release
