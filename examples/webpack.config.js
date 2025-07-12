@@ -35,15 +35,19 @@ export default {
     },
     mode: "development",
     module: {
-        rules: [{
-            test: /\.tsx?$/,
-            use: [{
-                loader: "ts-loader",
-                options: {
-                    projectReferences: true,
-                },
-            }],
-        }]
+        rules: [
+            {
+                test: /\.tsx?$/,
+                use: [
+                    {
+                        loader: "ts-loader",
+                        options: {
+                            projectReferences: true,
+                        },
+                    },
+                ],
+            },
+        ],
     },
     output: {
         filename: "[name].bundle.js",
@@ -81,4 +85,4 @@ export default {
         },
         // fallback: { "events": require.resolve("events/") }
     },
-}
+};

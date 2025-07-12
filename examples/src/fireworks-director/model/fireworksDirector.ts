@@ -3,7 +3,10 @@ import { Emitter, Eventlet } from "eventlet";
 // Width of canvas, just using a const for now, maybe take as an argument to FireworksDirector later.
 const FIELD_WIDTH = 500;
 
-export type vec2 = { x: number, y: number };
+export type vec2 = {
+    x: number;
+    y: number;
+};
 
 type PhysicsTickListener = (elapsedTimeMs: number) => void;
 const physicsClock = new Eventlet<PhysicsTickListener>();

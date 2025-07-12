@@ -1,4 +1,5 @@
 import { type FC, useState } from "react";
+
 import { PerfComparison } from "../model/index.js";
 
 export type PerfComparisonViewProps = {

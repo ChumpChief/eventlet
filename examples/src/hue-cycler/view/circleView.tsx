@@ -1,4 +1,5 @@
-import { type FC, useEffect, useState, useRef } from "react";
+import { type FC, useEffect, useRef, useState } from "react";
+
 import type { ObservableColor } from "../model/index.js";
 
 export type CircleViewProps = {
@@ -19,13 +20,18 @@ export const CircleView: FC<CircleViewProps> = ({ observableColor }) => {
     }, [observableColor]);
     return (
         <div>
-            <div style={{
-                display: "inline-block",
-                width: "50px",
-                height: "50px",
-                borderRadius: "50%",
-                backgroundColor: circleColor,
-            }}></div>
+            <div
+                style={
+                    {
+                        display: "inline-block",
+                        width: "50px",
+                        height: "50px",
+                        borderRadius: "50%",
+                        backgroundColor: circleColor,
+                    }
+                }
+            >
+            </div>
             <button onClick={ () => { observableColor.colorChanged.add(onColorChangeRef.current); } }>
                 Start listening to hue changes
             </button>

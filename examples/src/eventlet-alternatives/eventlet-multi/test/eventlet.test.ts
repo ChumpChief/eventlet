@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, jest, test } from "@jest/globals";
+
 import { Eventlet } from "../index.js";
 
 type EmptyListenerType = () => void;
@@ -45,63 +46,63 @@ describe("Eventlet", function() {
         test("Can add a listener and emit to it", function() {
             eventlet.add(mockListener1);
             eventlet.emit();
-            expect(mockListener1).lastCalledWith();
-            expect(mockListener1).toBeCalledTimes(1);
+            expect(mockListener1).toHaveBeenLastCalledWith();
+            expect(mockListener1).toHaveBeenCalledTimes(1);
             eventlet.emit();
-            expect(mockListener1).lastCalledWith();
-            expect(mockListener1).toBeCalledTimes(2);
+            expect(mockListener1).toHaveBeenLastCalledWith();
+            expect(mockListener1).toHaveBeenCalledTimes(2);
         });
 
         test("Can add multiple listeners and emit to all of them", function() {
             eventlet.add(mockListener1);
             eventlet.add(mockListener2);
             eventlet.emit();
-            expect(mockListener1).lastCalledWith();
-            expect(mockListener1).toBeCalledTimes(1);
-            expect(mockListener2).lastCalledWith();
-            expect(mockListener2).toBeCalledTimes(1);
+            expect(mockListener1).toHaveBeenLastCalledWith();
+            expect(mockListener1).toHaveBeenCalledTimes(1);
+            expect(mockListener2).toHaveBeenLastCalledWith();
+            expect(mockListener2).toHaveBeenCalledTimes(1);
             eventlet.emit();
-            expect(mockListener1).lastCalledWith();
-            expect(mockListener1).toBeCalledTimes(2);
-            expect(mockListener2).lastCalledWith();
-            expect(mockListener2).toBeCalledTimes(2);
+            expect(mockListener1).toHaveBeenLastCalledWith();
+            expect(mockListener1).toHaveBeenCalledTimes(2);
+            expect(mockListener2).toHaveBeenLastCalledWith();
+            expect(mockListener2).toHaveBeenCalledTimes(2);
         });
 
         test("Can remove a listener and it is no longer called", function() {
             eventlet.add(mockListener1);
             eventlet.emit();
-            expect(mockListener1).lastCalledWith();
-            expect(mockListener1).toBeCalledTimes(1);
+            expect(mockListener1).toHaveBeenLastCalledWith();
+            expect(mockListener1).toHaveBeenCalledTimes(1);
             eventlet.remove(mockListener1);
             eventlet.emit();
-            expect(mockListener1).lastCalledWith();
-            expect(mockListener1).toBeCalledTimes(1);
+            expect(mockListener1).toHaveBeenLastCalledWith();
+            expect(mockListener1).toHaveBeenCalledTimes(1);
         });
 
         test("Does nothing when removing an unregistered listener", function() {
             eventlet.add(mockListener1);
             eventlet.emit();
-            expect(mockListener1).lastCalledWith();
-            expect(mockListener1).toBeCalledTimes(1);
+            expect(mockListener1).toHaveBeenLastCalledWith();
+            expect(mockListener1).toHaveBeenCalledTimes(1);
             eventlet.remove(mockListener2);
             eventlet.emit();
-            expect(mockListener1).lastCalledWith();
-            expect(mockListener1).toBeCalledTimes(2);
+            expect(mockListener1).toHaveBeenLastCalledWith();
+            expect(mockListener1).toHaveBeenCalledTimes(2);
         });
 
         test("Does not double-register a listener", function() {
             eventlet.add(mockListener1);
             eventlet.emit();
-            expect(mockListener1).lastCalledWith();
-            expect(mockListener1).toBeCalledTimes(1);
+            expect(mockListener1).toHaveBeenLastCalledWith();
+            expect(mockListener1).toHaveBeenCalledTimes(1);
             eventlet.add(mockListener1);
             eventlet.emit();
-            expect(mockListener1).lastCalledWith();
-            expect(mockListener1).toBeCalledTimes(2);
+            expect(mockListener1).toHaveBeenLastCalledWith();
+            expect(mockListener1).toHaveBeenCalledTimes(2);
             eventlet.remove(mockListener1);
             eventlet.emit();
-            expect(mockListener1).lastCalledWith();
-            expect(mockListener1).toBeCalledTimes(2);
+            expect(mockListener1).toHaveBeenLastCalledWith();
+            expect(mockListener1).toHaveBeenCalledTimes(2);
         });
 
         test("Maintains correct call order", function() {
@@ -121,23 +122,23 @@ describe("Eventlet", function() {
             eventlet.add(orderedListener2);
             eventlet.add(orderedListener3);
             eventlet.emit();
-            expect(orderedListener1).toBeCalledTimes(1);
-            expect(orderedListener2).toBeCalledTimes(1);
-            expect(orderedListener3).toBeCalledTimes(1);
+            expect(orderedListener1).toHaveBeenCalledTimes(1);
+            expect(orderedListener2).toHaveBeenCalledTimes(1);
+            expect(orderedListener3).toHaveBeenCalledTimes(1);
 
             eventlet.remove(orderedListener2);
             // Re-adding an already-registered listener should not change the order
             eventlet.add(orderedListener1);
             eventlet.emit();
-            expect(orderedListener1).toBeCalledTimes(2);
-            expect(orderedListener2).toBeCalledTimes(1);
-            expect(orderedListener3).toBeCalledTimes(2);
+            expect(orderedListener1).toHaveBeenCalledTimes(2);
+            expect(orderedListener2).toHaveBeenCalledTimes(1);
+            expect(orderedListener3).toHaveBeenCalledTimes(2);
 
             eventlet.add(orderedListener2);
             eventlet.emit();
-            expect(orderedListener1).toBeCalledTimes(3);
-            expect(orderedListener2).toBeCalledTimes(2);
-            expect(orderedListener3).toBeCalledTimes(3);
+            expect(orderedListener1).toHaveBeenCalledTimes(3);
+            expect(orderedListener2).toHaveBeenCalledTimes(2);
+            expect(orderedListener3).toHaveBeenCalledTimes(3);
 
             expect(expectedCallOrder.length).toBe(0);
         });
@@ -156,26 +157,26 @@ describe("Eventlet", function() {
         test("Can add a listener and emit to it", function() {
             eventlet.add(mockListener1);
             eventlet.emit(1, "hi");
-            expect(mockListener1).lastCalledWith(1, "hi");
-            expect(mockListener1).toBeCalledTimes(1);
+            expect(mockListener1).toHaveBeenLastCalledWith(1, "hi");
+            expect(mockListener1).toHaveBeenCalledTimes(1);
             eventlet.emit(2, "bye");
-            expect(mockListener1).lastCalledWith(2, "bye");
-            expect(mockListener1).toBeCalledTimes(2);
+            expect(mockListener1).toHaveBeenLastCalledWith(2, "bye");
+            expect(mockListener1).toHaveBeenCalledTimes(2);
         });
 
         test("Can add multiple listeners and emit to all of them", function() {
             eventlet.add(mockListener1);
             eventlet.add(mockListener2);
             eventlet.emit(1, "hi");
-            expect(mockListener1).lastCalledWith(1, "hi");
-            expect(mockListener1).toBeCalledTimes(1);
-            expect(mockListener2).lastCalledWith(1, "hi");
-            expect(mockListener2).toBeCalledTimes(1);
+            expect(mockListener1).toHaveBeenLastCalledWith(1, "hi");
+            expect(mockListener1).toHaveBeenCalledTimes(1);
+            expect(mockListener2).toHaveBeenLastCalledWith(1, "hi");
+            expect(mockListener2).toHaveBeenCalledTimes(1);
             eventlet.emit(2, "bye");
-            expect(mockListener1).lastCalledWith(2, "bye");
-            expect(mockListener1).toBeCalledTimes(2);
-            expect(mockListener2).lastCalledWith(2, "bye");
-            expect(mockListener2).toBeCalledTimes(2);
+            expect(mockListener1).toHaveBeenLastCalledWith(2, "bye");
+            expect(mockListener1).toHaveBeenCalledTimes(2);
+            expect(mockListener2).toHaveBeenLastCalledWith(2, "bye");
+            expect(mockListener2).toHaveBeenCalledTimes(2);
         });
     });
 
@@ -202,7 +203,7 @@ describe("Eventlet", function() {
         test("Arrow function uses correct this", function() {
             eventlet.add(classObject.arrowFunction);
             eventlet.emit();
-            expect(classObject.classMethod).toBeCalledTimes(1);
+            expect(classObject.classMethod).toHaveBeenCalledTimes(1);
         });
 
         test("Arrow function uses correct this - emit check", function() {
@@ -213,7 +214,7 @@ describe("Eventlet", function() {
         test("Regular function bound uses correct this", function() {
             eventlet.add(classObject.regularFunctionBound);
             eventlet.emit();
-            expect(classObject.classMethod).toBeCalledTimes(1);
+            expect(classObject.classMethod).toHaveBeenCalledTimes(1);
         });
 
         test("Regular function bound uses correct this - emit check", function() {
@@ -233,26 +234,26 @@ describe("Eventlet", function() {
         test("Can register a listener with once and it only fires once", function() {
             eventlet.add(mockListener1, { once: true });
             eventlet.emit();
-            expect(mockListener1).lastCalledWith();
-            expect(mockListener1).toBeCalledTimes(1);
+            expect(mockListener1).toHaveBeenLastCalledWith();
+            expect(mockListener1).toHaveBeenCalledTimes(1);
             eventlet.emit();
-            expect(mockListener1).toBeCalledTimes(1);
+            expect(mockListener1).toHaveBeenCalledTimes(1);
         });
 
         test("Can re-register a once listener for another single firing", function() {
             eventlet.add(mockListener1, { once: true });
             eventlet.emit();
-            expect(mockListener1).lastCalledWith();
-            expect(mockListener1).toBeCalledTimes(1);
+            expect(mockListener1).toHaveBeenLastCalledWith();
+            expect(mockListener1).toHaveBeenCalledTimes(1);
             eventlet.emit();
-            expect(mockListener1).toBeCalledTimes(1);
+            expect(mockListener1).toHaveBeenCalledTimes(1);
 
             eventlet.add(mockListener1, { once: true });
             eventlet.emit();
-            expect(mockListener1).lastCalledWith();
-            expect(mockListener1).toBeCalledTimes(2);
+            expect(mockListener1).toHaveBeenLastCalledWith();
+            expect(mockListener1).toHaveBeenCalledTimes(2);
             eventlet.emit();
-            expect(mockListener1).toBeCalledTimes(2);
+            expect(mockListener1).toHaveBeenCalledTimes(2);
         });
     });
 });

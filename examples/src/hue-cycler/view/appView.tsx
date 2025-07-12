@@ -1,5 +1,7 @@
 import type { FC } from "react";
+
 import type { ObservableColor } from "../model/index.js";
+
 import { CircleView } from "./circleView.js";
 
 export type AppViewProps = {

@@ -1,12 +1,13 @@
 import { Emitter, Eventlet } from "eventlet";
+
 import { ObservableHue } from "./hueCycler.js";
 
 export type ObservableColor = {
-    readonly colorString: string,
-    readonly colorChanged: Emitter,
+    readonly colorString: string;
+    readonly colorChanged: Emitter;
 };
 
-export class HueColorAdapter {
+export class HueColorAdapter implements ObservableColor {
     private readonly _colorChanged = new Eventlet();
     public get colorChanged(): Emitter {
         return this._colorChanged;
