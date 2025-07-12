@@ -4,7 +4,7 @@ import type {
     UntypedListener,
 } from "../index.js";
 
-/* eslint-disable @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars, @typescript-eslint/ban-ts-comment, @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars, @typescript-eslint/ban-ts-comment, @typescript-eslint/no-empty-object-type */
 
 declare let untyped: UntypedListener;
 untyped = () => {};

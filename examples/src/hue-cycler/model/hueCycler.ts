@@ -1,8 +1,8 @@
 import { Emitter, Eventlet } from "eventlet";
 
 export type ObservableHue = {
-    readonly hue: number,
-    readonly hueChanged: Emitter,
+    readonly hue: number;
+    readonly hueChanged: Emitter;
 };
 
 export class HueCycler implements ObservableHue {

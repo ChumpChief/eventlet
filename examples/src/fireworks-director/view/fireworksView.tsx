@@ -1,4 +1,5 @@
 import { type FC, useCallback, useEffect, useRef, useState } from "react";
+
 import { Firework, FireworksDirector } from "../model/index.js";
 
 export type FireworksViewProps = {
@@ -6,12 +7,12 @@ export type FireworksViewProps = {
 };
 
 type Explosion = {
-    x: number,
-    y: number,
-    radius: number,
-    color: string,
-    opacity: number,
-}
+    x: number;
+    y: number;
+    radius: number;
+    color: string;
+    opacity: number;
+};
 
 export const FireworksView: FC<FireworksViewProps> = ({ fireworksDirector }) => {
     const launchedFireworks = useRef(new Set<Firework>());
@@ -104,7 +105,7 @@ export const FireworksView: FC<FireworksViewProps> = ({ fireworksDirector }) => 
 
     return (
         <>
-            <canvas width={ 500 } height={ 500 } ref={renderScene}></canvas>
+            <canvas width={ 500 } height={ 500 } ref={ renderScene }></canvas>
             <div>
                 Current launched firework count: { launchedFireworksDebug }<br></br>
                 Current explosion count: { explosionsDebug }

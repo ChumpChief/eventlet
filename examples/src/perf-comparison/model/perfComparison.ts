@@ -4,7 +4,7 @@ import { EventEmitter } from "events";
 const ITERATION_COUNT = 100_000;
 const MANY_EMIT_ITERATION_COUNT = 10;
 // eslint-disable-next-line @typescript-eslint/no-empty-function
-const listeners: (() => void)[] = Array.from({ length: ITERATION_COUNT }, () => (() => {}));
+const listeners: (() => void)[] = Array.from({ length: ITERATION_COUNT }, () => () => {});
 
 export class PerfComparison {
     public readonly runRegisterUnregisterTestEventEmitter = () => {
