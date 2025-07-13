@@ -1,3 +1,5 @@
+![CI status badge](https://github.com/ChumpChief/eventlet/actions/workflows/ci.yml/badge.svg)
+
 # Eventlet
 
 The Eventlet project is organized as a monorepo.  For information on the Eventlet library, check out its [README](./packages/eventlet/README.md).
@@ -117,5 +119,3 @@ This repo is opinionated about its technology choices.  Specifically:
 * Trunk-based development (optionally with release branches)
 * Synchronized version numbers across packages
 * MacOS/Linux development environment
-
-![CI status badge](https://github.com/ChumpChief/ProjectTemplate/actions/workflows/ci.yml/badge.svg)
