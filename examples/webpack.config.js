@@ -10,7 +10,7 @@ export default {
     devtool: "source-map",
     entry: {
         "index": {
-            import: "./src/index.tsx",
+            import: "./src/index.ts",
         },
         "eventlet-pack-test": {
             filename: "eventlet-pack-test/[name].bundle.js",
@@ -59,22 +59,22 @@ export default {
     plugins: [
         new HtmlWebpackPlugin({
             chunks: ["index"],
-            template: "./src/index.html",
+            title: "Examples",
         }),
         new HtmlWebpackPlugin({
             chunks: ["fireworks-director"],
             filename: "fireworks-director/index.html",
-            template: "./src/fireworks-director/index.html",
+            title: "fireworks-director",
         }),
         new HtmlWebpackPlugin({
             chunks: ["hue-cycler"],
             filename: "hue-cycler/index.html",
-            template: "./src/hue-cycler/index.html",
+            title: "hue-cycler",
         }),
         new HtmlWebpackPlugin({
             chunks: ["perf-comparison"],
             filename: "perf-comparison/index.html",
-            template: "./src/perf-comparison/index.html",
+            title: "perf-comparison",
         }),
     ],
     resolve: {

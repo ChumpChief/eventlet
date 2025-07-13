@@ -1,14 +1,11 @@
 import { createElement } from "react";
 import { createRoot } from "react-dom/client";
 
-import { FireworksDirector } from "./model/index.js";
-import { FireworksView } from "./view/index.js";
-
-const fireworksDirector = new FireworksDirector();
+import { ExampleListView } from "./exampleListView.js";
 
 const appRootDiv = document.createElement("div");
 appRootDiv.classList.add("app-root");
 const reactRoot = createRoot(appRootDiv);
-reactRoot.render(createElement(FireworksView, { fireworksDirector }));
+reactRoot.render(createElement(ExampleListView));
 
 document.body.append(appRootDiv);
